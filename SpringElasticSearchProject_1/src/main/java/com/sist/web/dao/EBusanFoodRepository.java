@@ -19,6 +19,9 @@ import java.util.*;
  * 				-------- GreaterThenEqual
  *  4) 가격(price) 1000원보다 작고 가격 => 내림차순
  *     findByPriceLessThenOrderByPriceDESC()
+ *     
+ *  @Query({hits:hits:{_source:{type:'*0?*'}})
+ *  	1? 2? 3?   
  * 
  */
 
@@ -27,6 +30,6 @@ public interface EBusanFoodRepository extends ElasticsearchRepository<EBusanFood
 	public List<EBusanFood> findByTypeContaining(String type);
 	// 메서드화 => 조건이 있는 경우 / Order By, Group By ...
 	// JOIN => 메서드(X)
-	public EBusanFood findById(int id);	// findByName(String name)
+	public EBusanFood findById(String id);	// findByName(String name)
 	// WHERE id=?
 }

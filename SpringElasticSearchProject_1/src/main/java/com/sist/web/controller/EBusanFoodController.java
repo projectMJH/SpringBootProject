@@ -96,5 +96,22 @@ public class EBusanFoodController {
 				
 		return "busan/list";
 	}
+	
+	@RequestMapping("/busan/find")
+	public String busan_find(@RequestParam(name="type", defaultValue = "한식") String type, Model model)
+	{
+		List<EBusanFood> list=eDao.findByTypeContaining(type);
+		model.addAttribute("list",list);
+		return "busan/find";
+	}
+	
+	@GetMapping("/busan/detail")
+	public String busan_detail(@RequestParam("id") String id, Model model)
+	{
+		EBusanFood vo=eDao.findById(id);
+		model.addAttribute("vo",vo);
+		
+		return "busan/detail";
+	}
 
 }
