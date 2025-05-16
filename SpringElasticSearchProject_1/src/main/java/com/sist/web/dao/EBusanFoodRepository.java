@@ -26,5 +26,7 @@ import java.util.*;
 public interface EBusanFoodRepository extends ElasticsearchRepository<EBusanFood, Integer>{
 	public List<EBusanFood> findByTypeContaining(String type);
 	// 메서드화 => 조건이 있는 경우 / Order By, Group By ...
-	// 
+	// JOIN => 메서드(X)
+	public EBusanFood findById(int id);	// findByName(String name)
+	// WHERE id=?
 }
