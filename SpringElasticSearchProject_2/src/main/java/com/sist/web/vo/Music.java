@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Document(indexName = "music")
 @Getter
-@Setter
+@Setter 
 public class Music {
 	@Id
 	private String id;
