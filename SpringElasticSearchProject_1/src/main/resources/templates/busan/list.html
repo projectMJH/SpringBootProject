@@ -18,6 +18,30 @@ p{
 }
 </style>
 </head>
+<!-- 
+    1. 반복문
+      th:each="받는변수:Collection/배열"
+              vo:${list}
+                 ------- EL
+    2. 조건문
+      th:if="${조건}" th:else=""
+      
+    3. 출력
+      [[${}]] th:text th:html ....
+      
+    4. for 
+      ${#numbers.sequence(1,10)} => for(int i=1,i<=10;i++)
+      
+    5. link
+      @{URL(?뒤에 들어가는 변수)}
+      
+    => JSP 없이 HTML을 이용해서 출력 => JSP보다 속도가 늦다  
+    => Spring-Framework : 서버 / 클라이언트
+    => Spring-Boot : 서버 / Front를 별도로 만들어서 처리
+       ----------- Java / Kotlin    
+       ----------- Java 21버전
+       ----------- 웹은 Spring - Framework 와 동일               
+ -->
 <body>
   <!-- 
       JSP       => ?page=1
@@ -25,6 +49,22 @@ p{
       axios     => params:{}
       ajax      => data:{}
       react     => ?page=${page}
+      
+      Java
+      Oracle
+      HTML/CSS/JavaScript => Ajax
+      JSP
+      Spring Framework
+      Python => Numpy / Pandas / MatplotLib
+      ElasticSearch
+      AWS : Git, Git Action, Docker
+        => MyBatis / JPA
+        => MySQL
+        => Vue Vuex / React Redux React-Query
+        => Spring-Boot / Django
+        ---------------------------------------
+        => Next / NodeJS / TypeScript => 보류
+        
    -->
   <div class="container">
     <div class="row">
