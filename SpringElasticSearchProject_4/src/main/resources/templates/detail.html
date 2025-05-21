@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.row{
+  margin: 0px auto;
+  width: 750px;
+}
+.container{
+  margin-top: 50px;
+}
+</style>
+<!-- 
+    JSP (MVC) Oracle ====================== Ajax(Jquery) => JDBC
+    Spring-Framework : Oracle ============= Vue3
+                                            MyBatis
+    Spring-Boot : MySQL =================== React / React-Query / Redux
+                   | JPA
+    Python / ElasticSearch / Django
+    -------------------------------
+    AWS / Docker / Git - Git Actions
+    NextJS, Vuex                                                       
+ -->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <table class="table'">
+        <tr>
+          <td class="text-center">
+            <img th:src="${vo.poster}" style="width: 700px; heigth: 350px;">
+          </td>
+        </tr>
+        <tr>
+          <td>[[${vo.address}]]</td>
+        </tr>
+        <tr>
+          <td>[[${vo.phone}]]</td>
+        </tr>
+        <tr>
+          <td>[[${vo.address}]]</td>
+        </tr>
+      </table>
+    </div>
+  </div>  
+</body>
+</html>
