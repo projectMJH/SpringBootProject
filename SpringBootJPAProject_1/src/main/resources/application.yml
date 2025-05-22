@@ -1,0 +1,27 @@
+#port = 8080
+server:
+  port: 80
+#데이터베이스 설정 
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mydb?autoReconnect=true
+    username: root  
+    password: happy
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        storage_engine: innodb
+        # sql 문장표시
+        # findByBetweenNum(1,10) => where num between 1 and 10    
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  thymeleaf:
+    cache: false
+    encoding: utf-8
+    prefix: classpath:templates/
+    suffix: .html
+    mode: HTML
