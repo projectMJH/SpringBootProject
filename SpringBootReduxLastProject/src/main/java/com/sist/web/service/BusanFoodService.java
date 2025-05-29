@@ -12,4 +12,9 @@ public interface BusanFoodService {
 	public List<BusanInfoEntity> busanInfoMainData();
 	public List<BusanFoodVO> busanListData(int start);
 	public int busanFoodTotalPage();
+	public BusanFoodEntity busanDetailData(int fno);
+	
+	public List<BusanInfoEntity> busanInfoListData(int cno,int start);
+	public int busanInfoTotalPage(int cno);
+	public List<BusanInfoEntity> findByTitleContaining(String title);
 }

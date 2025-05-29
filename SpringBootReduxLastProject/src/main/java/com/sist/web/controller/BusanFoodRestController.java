@@ -61,4 +61,28 @@ public class BusanFoodRestController {
 		map.put("endPage", endPage);
 		return map;
 	}
+	
+	@GetMapping("/food/detail_react")
+	public BusanFoodEntity food_detail(@RequestParam("fno") int fno)
+	{
+		BusanFoodEntity vo=bService.busanDetailData(fno);
+		return vo;
+	}
+	
+	@GetMapping("/info/list_react")
+	public Map info_list(@RequestParam("cno") int cno,
+										@RequestParam("page") int page)
+	{
+		Map map=new HashMap();
+		int rowSize=12;
+		int start=(page-1)*rowSize;
+		List<BusanInfoEntity> list=bService.busanInfoListData(cno,start);
+		int totalpage=bService.busanInfoTotalPage(cno);
+		map.put("list", list);
+		map.put("totalpage", totalpage);
+		map.put("curpage", page);
+		
+		return map; 
+	}
+	
 }

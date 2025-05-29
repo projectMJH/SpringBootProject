@@ -40,4 +40,28 @@ public class BusanFoodServiceImpl implements BusanFoodService{
 		return bDao.busanFoodTotalPage();
 	}
 
+	@Override
+	public BusanFoodEntity busanDetailData(int fno) {
+		// TODO Auto-generated method stub
+		return bDao.findByFno(fno);
+	}
+
+	@Override
+	public List<BusanInfoEntity> busanInfoListData(int cno, int start) {
+		// TODO Auto-generated method stub
+		return iDao.busanInfoListData(cno, start);
+	}
+
+	@Override
+	public int busanInfoTotalPage(int cno) {
+		// TODO Auto-generated method stub
+		return iDao.busanInfoTotalPage(cno);
+	}
+
+	@Override
+	public List<BusanInfoEntity> findByTitleContaining(String title) {
+		// TODO Auto-generated method stub
+		return iDao.findByTitleContaining(title);
+	}
+
 }
