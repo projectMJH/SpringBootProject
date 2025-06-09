@@ -22,4 +22,13 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer>{
 	
 	@Query(value = "SELECT NVL(MAX(no)+1,1) FROM board", nativeQuery = true)
 	public int maxNo();
+	
+	@Query(value = "SELECT no,subject,name,TO_CHAR(content) as content,TO_CHAR(regdate,'yyyy-MM-dd') as dbday,hit,rownum as num "
+			+ "FROM board WHERE no=:no", nativeQuery = true)
+	public BoardVO boardDetailData(@Param("no") int no);
+	
+	@Query(value = "SELECT no,subject,name,TO_CHAR(content) as content "
+			+ "FROM board WHERE no=:no", nativeQuery = true)
+	public BoardUpdateVO boardUpdateData(@Param("no") int no);
+	
 }

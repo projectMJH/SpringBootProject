@@ -5,6 +5,8 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,24 +32,32 @@ public class BoardRestController {
 	// http://localhost/board/list/${page}
 	// ResponseEntity<Map>
 	@GetMapping("/board/list/{page}")
-	public Map board_list(@PathVariable("page") int page)
+	public ResponseEntity<Map> board_list(@PathVariable("page") int page)
 	{
 		Map map=new HashMap();
-		int rowSize=10;
-		int start=(page*rowSize)-(rowSize-1);
-		int end=(page*rowSize);
-		List<BoardVO> list=bDao.boardListData(start,end);
+		try
+		{
+			int rowSize=10;
+			int start=(page*rowSize)-(rowSize-1);
+			int end=(page*rowSize);
+			List<BoardVO> list=bDao.boardListData(start,end);
 
-		int count=(int)bDao.count();
-		int totalpage=(int)(Math.ceil(count/(double)rowSize));
-		String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			int count=(int)bDao.count();
+			int totalpage=(int)(Math.ceil(count/(double)rowSize));
+			String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			
+			map.put("today", today);
+			map.put("curpage", page);
+			map.put("totalpage", totalpage);
+			map.put("list", list);
+			
+		}catch(Exception ex)
+		{
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+			// 서버측 에러 전송
+		}
 		
-		map.put("today", today);
-		map.put("curpage", page);
-		map.put("totalpage", totalpage);
-		map.put("list", list);
-		
-		return map;
+		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
 	
 	@PostMapping("/board/insert")
@@ -87,60 +97,87 @@ public class BoardRestController {
 	 *  	
 	 */
 	@GetMapping("/board/detail/{no}")
-	public BoardEntity board_detail(@PathVariable("no") int no) 
+	public ResponseEntity<BoardVO> board_detail(@PathVariable("no") int no) 
 	{
-		BoardEntity vo=bDao.findByNo(no);
-		vo.setHit(vo.getHit()+1);
-		bDao.save(vo);
-		//vo=bDao.findByNo(no);
-		
-		return vo;
+		BoardEntity be=null;
+		BoardVO vo=null;
+		try
+		{
+			be=bDao.findByNo(no);
+			// 조회수 증가
+			be.setHit(be.getHit()+1);
+			bDao.save(be);
+			vo=bDao.boardDetailData(no);
+		}catch(Exception ex)
+		{
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+			// console 오류를 서버 / React 구분 => 500, 404...
+		}
+		return new ResponseEntity<>(vo,HttpStatus.OK);
 	}
 	// 삭제
 	@DeleteMapping("/board/delete/{no}/{pwd}")
-	public Map board_delete(@PathVariable("no") int no,
+	public ResponseEntity<Map> board_delete(@PathVariable("no") int no,
 							@PathVariable("pwd") String pwd)
 	{
 		Map map=new HashMap();
-		BoardEntity vo=bDao.findByNo(no);
-		if(pwd.equals(vo.getPwd()))
+		try
 		{
-			bDao.delete(vo);
-			map.put("msg", "yes");
-		}
-		else
+			BoardEntity vo=bDao.findByNo(no);
+			if(pwd.equals(vo.getPwd()))
+			{
+				bDao.delete(vo);
+				map.put("msg", "yes");
+			}
+			else
+			{
+				map.put("msg", "no");
+			}			
+		}catch(Exception ex)
 		{
-			map.put("msg", "no");
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return map;		
+		return new ResponseEntity<>(map,HttpStatus.OK);		
 	}
 	
 	@GetMapping("/board/update/{no}")
-	public BoardEntity board_update(@PathVariable("no") int no)
+	public ResponseEntity<BoardUpdateVO> board_update(@PathVariable("no") int no)
 	{
-		BoardEntity vo=bDao.findByNo(no);
+		BoardUpdateVO vo=null;
+		try
+		{
+			vo=bDao.boardUpdateData(no);
+		}catch(Exception ex)
+		{
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
-		return vo;
+		return new ResponseEntity<>(vo,HttpStatus.OK);
 	}
 	
 	@PutMapping("/board/update_ok")
-	public Map board_update_ok(@RequestBody BoardEntity vo)
+	public ResponseEntity<Map> board_update_ok(@RequestBody BoardEntity vo)
 	{
 		Map map=new HashMap();
-		BoardEntity db=bDao.findByNo(vo.getNo());
-		if(vo.getPwd().equals(db.getPwd()))
+		try
 		{
-			//vo.setNo(vo.getNo());
-			vo.setHit(db.getHit());
-			bDao.save(vo);
-			map.put("msg","yes");
-		}
-		else
+			BoardEntity db=bDao.findByNo(vo.getNo());
+			if(vo.getPwd().equals(db.getPwd()))
+			{
+				vo.setHit(db.getHit()-1);
+				bDao.save(vo);
+				map.put("msg","yes");
+			}
+			else
+			{
+				map.put("msg","no");
+			}
+		}catch(Exception ex)
 		{
-			map.put("msg","no");
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return map;
+		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
 	
 }
