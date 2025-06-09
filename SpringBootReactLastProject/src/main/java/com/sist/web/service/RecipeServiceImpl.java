@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.web.dao.*;
 import com.sist.web.entity.*;
+import com.sist.web.vo.*;
 @Service
 public class RecipeServiceImpl implements RecipeService {
 	@Autowired

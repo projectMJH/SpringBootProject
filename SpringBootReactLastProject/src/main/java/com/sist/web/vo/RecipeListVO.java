@@ -1,4 +1,4 @@
-package com.sist.web.entity;
+package com.sist.web.vo;
 
 public interface RecipeListVO {
 	public int getNo();

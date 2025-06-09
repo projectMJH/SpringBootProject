@@ -6,6 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.sist.web.entity.*;
+import com.sist.web.vo.*;
+
 import java.util.*;
 
 @Repository

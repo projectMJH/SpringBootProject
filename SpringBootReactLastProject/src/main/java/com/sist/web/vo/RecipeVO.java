@@ -1,4 +1,4 @@
-package com.sist.web.entity;
+package com.sist.web.vo;
 /*
  * NO         NOT NULL NUMBER         
 TITLE      NOT NULL VARCHAR2(4000) 

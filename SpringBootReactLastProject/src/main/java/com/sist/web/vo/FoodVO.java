@@ -1,6 +1,6 @@
-package com.sist.web.entity;
+package com.sist.web.vo;
 
-public interface FoodListVO {
+public interface FoodVO {
 	public int getFno();
 	public String getName();
 	public String getPoster();
@@ -9,7 +9,7 @@ public interface FoodListVO {
 	//public String getAddress();
 	public String getPhone();
 	
-	//public int getHit();
-	//public int getLikecount();
-	public int getNum();
+	public int getHit();
+	public int getLikecount();
+	public int getRownum();
 }
