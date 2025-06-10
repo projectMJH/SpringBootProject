@@ -30,4 +30,19 @@ public class RecipeRestController {
 		}
 		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
+	
+	@GetMapping("/recipe/detail/{no}")
+	public ResponseEntity<Map> recipe_detail(@PathVariable("no") int no)
+	{
+		Map map=new HashMap();
+		try
+		{
+			map=rService.recipeDetailData(no);
+			
+		}catch(Exception ex)
+		{
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(map,HttpStatus.OK);
+	}
 }

@@ -9,7 +9,7 @@ public interface FoodListVO {
 	//public String getAddress();
 	public String getPhone();
 	
-	//public int getHit();
-	//public int getLikecount();
+	public int getHit();
+	public int getLikecount();
 	public int getNum();
 }

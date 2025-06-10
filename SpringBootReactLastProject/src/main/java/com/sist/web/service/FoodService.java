@@ -9,4 +9,5 @@ import com.sist.web.vo.*;
 public interface FoodService {
 	public List<FoodVO> FoodMainData();
 	public Map foodListData(int page);
+	public FoodEntity foodDetailData(int fno);
 }

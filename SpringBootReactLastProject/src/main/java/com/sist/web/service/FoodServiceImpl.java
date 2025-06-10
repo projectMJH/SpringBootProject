@@ -44,5 +44,11 @@ public class FoodServiceImpl implements FoodService {
 	    map.put("endPage", endPage);
 		return map;
 	}
+
+	@Override
+	public FoodEntity foodDetailData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.foodDetailData(fno);
+	}
 	
 }

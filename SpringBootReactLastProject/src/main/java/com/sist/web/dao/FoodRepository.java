@@ -25,5 +25,10 @@ public interface FoodRepository extends JpaRepository<FoodEntity, Integer>{
 	public List<FoodListVO> foodListData(@Param("start") Integer start,
 									@Param("end") Integer end);
 	
+	@Query(value = "SELECT fno,name,type,phone,address,score,TO_CHAR(theme) as theme,poster,"
+			+ "images,time,parking,TO_CHAR(content) as content,hit,price,jjimcount,likecount,replycount,rdays "
+			+ "FROM project_food "
+			+ "WHERE fno=:fno",nativeQuery = true)
+	public FoodEntity foodDetailData(@Param("fno") int fno);
 	
 }

@@ -11,6 +11,8 @@ import com.sist.web.vo.*;
 public class RecipeServiceImpl implements RecipeService {
 	@Autowired
 	private RecipeRepository rDao;
+	@Autowired
+	private RecipeDetailRepository rdDao;
 
 	@Override
 	public Map recipeListData(int page) {
@@ -44,6 +46,32 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<RecipeVO> recipeMainData() {
 		// TODO Auto-generated method stub
 		return rDao.recipeMainData();
+	}
+
+
+	@Override
+	public Map recipeDetailData(int no) {
+		// TODO Auto-generated method stub
+		Map map=new HashMap();
+		RecipeDetailEntity vo=rdDao.recipeDetailData(no);
+		String[] foodmake=vo.getFoodmake().split("\n");
+		List<String> mList=new ArrayList<String>();
+		List<String> iList=new ArrayList<String>();
+		for (String fm:foodmake)
+		{
+			StringTokenizer st=new StringTokenizer(fm,"^");
+			mList.add(st.nextToken());
+			iList.add(st.nextToken());
+		}
+		String[] datas=vo.getData().split(",");
+		List<String> dList=Arrays.asList(datas);
+		
+		map.put("vo", vo);
+		map.put("mList", mList);
+		map.put("iList", iList);
+		map.put("dList", dList);
+		
+		return map;
 	}
 	
 	
